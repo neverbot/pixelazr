@@ -2,9 +2,9 @@
 
 function Pixelazr()
 {
-  this.image     = null;
-  this.logs      = null;
-  this.droppable = null;
+  this.logs       = null;
+  this.droppable  = null;
+  this.art        = null;
 }
 
 Pixelazr.prototype.initialize = function()
@@ -18,7 +18,8 @@ Pixelazr.prototype.initialize = function()
   this.droppable = new Pixelazr.Droppable();
   this.droppable.initialize(document.getElementById('droppableImage'));
 
-  // this.image = new Pixelazr.Image();
+  this.art = new Pixelazr.Art();
+  this.art.initialize(document.getElementById('canvas'));
 
 }
 
@@ -30,7 +31,7 @@ Pixelazr.prototype.initialize = function()
 // Global objects
 var pixelazr = new Pixelazr();
 
-// Game initialization
+// Global initialization
 addEvent('load', window, function() {
   pixelazr.initialize();
 });

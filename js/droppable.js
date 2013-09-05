@@ -31,10 +31,7 @@ Pixelazr.Droppable.prototype.initialize = function (element)
     var image = new Image();
     image.src = e.target.result;  
 
-    var canvas = document.getElementById('canvas');
-
-    canvas.getContext('2d').clearRect(0, 0, 500, 500);
-    canvas.getContext('2d').drawImage(image, 0, 0);
+    pixelazr.art.setImage(image);
   } 
 } 
 
