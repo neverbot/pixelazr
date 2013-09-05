@@ -22,23 +22,31 @@
         <div id='info' style='display:none;'></div>
       </div>
 
-      <!--
-      <div id='form'>
-        <form id='formInputs' action='' autocomplete='off' onSubmit='return updateValues();'>
-          <div><label>Force FPS    </label><input type='text' name='fpsForm'    id='fpsForm' /></div>
-          <div><label>xStart       </label><input type='text' name='xStartForm' id='xStartForm' /></div>
-          <div><label>yStart       </label><input type='text' name='yStartForm' id='yStartForm' /></div>
-          <div><label>Sprite Width </label><input type='text' name='widthForm'  id='widthForm' /></div>
-          <div><label>Sprite Height</label><input type='text' name='heightForm' id='heightForm' /></div>
-          <div><label>Frames       </label><input type='text' name='framesForm' id='framesForm' /></div>
-          <div><label>Speed        </label><input type='text' name='speedForm'  id='speedForm' /></div>
-          <div><input type="radio" name="backgroundForm" value="white" />BG White </div>
-          <div><input type="radio" name="backgroundForm" value="#666"  />BG Grey </div>
-          <div><input type="radio" name="backgroundForm" value="black" checked />BG Black </div>
-          <input type='submit' value='Update'/> 
+      <div id='formContainer'>
+        <form id='pixelate' action='' autocomplete='off' onSubmit='return doPixelate();'>
+          <input type='submit' value='Pixelate'/> 
+        </form>
+        <form id='reset' action='' autocomplete='off' onSubmit='return doReset();'>
+          <input type='submit' value='Reset'/> 
+        </form>
+        <form id='download' action='' autocomplete='off' onSubmit='return doDownload();'>
+          <input type='submit' value='Download'/> 
         </form>
       </div>
-      --> 
+
+      <!--
+      <div><label>Force FPS    </label><input type='text' name='fpsForm'    id='fpsForm' /></div>
+      <div><label>xStart       </label><input type='text' name='xStartForm' id='xStartForm' /></div>
+      <div><label>yStart       </label><input type='text' name='yStartForm' id='yStartForm' /></div>
+      <div><label>Sprite Width </label><input type='text' name='widthForm'  id='widthForm' /></div>
+      <div><label>Sprite Height</label><input type='text' name='heightForm' id='heightForm' /></div>
+      <div><label>Frames       </label><input type='text' name='framesForm' id='framesForm' /></div>
+      <div><label>Speed        </label><input type='text' name='speedForm'  id='speedForm' /></div>
+      <div><input type="radio" name="backgroundForm" value="white" />BG White </div>
+      <div><input type="radio" name="backgroundForm" value="#666"  />BG Grey </div>
+      <div><input type="radio" name="backgroundForm" value="black" checked />BG Black </div>
+      -->
+
 
     </div>
     </div>
@@ -48,44 +56,6 @@
     <script type='text/javascript' src='js/logs.js'></script>
     <script type='text/javascript' src='js/droppable.js'></script>
     <script type='text/javascript' src='js/art.js'></script>
-
-
-    <!--
-    <script type='text/javascript' src='js/logs.js'></script>
-    <script type='text/javascript' src='js/item.js'></script>
-    <script type='text/javascript' src='js/thing.js'></script>
-    <script type='text/javascript' src='js/sprites.js'></script>
-    <script type='text/javascript' src='js/game.js'></script>
-    -->
-
-    <!--
-    <script type='text/javascript'>
-      // Script to control the form
-      function updateValues()
-      {
-        var form = document.getElementById('formInputs');
-
-        // alert(form.fpsForm.value);
-
-        var radios = document.getElementsByName('backgroundForm');
-        var color = '#000';
-
-        for (var i = 0, length = radios.length; i < length; i++) {
-            if (radios[i].checked) {
-                color = radios[i].value;
-            }
-        }
-
-        // (fps, xStart, yStart, width, height, frames, speed)
-        test.updateValues(form.fpsForm.value, form.xStartForm.value, form.yStartForm.value,
-                          form.widthForm.value, form.heightForm.value,
-                          form.framesForm.value, form.speedForm.value,
-                          color);
-
-        return false; // do not allow submission
-      }
-    </script>
-    -->
 
   </body>
 

@@ -19,8 +19,9 @@ Pixelazr.Droppable.prototype.initialize = function (element)
   this.reader = new FileReader(); 
 
   this.reader.onerror = function(e)  
-  { 
-    pixelazr.logs.inform('Error code: ' + e.target.error); 
+  {
+    var evt = e || window.event; 
+    pixelazr.logs.inform('Error code: ' + evt.target.error); 
   }
 
   // Create a closure to capture the file information. 
@@ -28,8 +29,9 @@ Pixelazr.Droppable.prototype.initialize = function (element)
   { 
     pixelazr.logs.inform('Image loaded');
 
+    var evt = e || window.event; 
     var image = new Image();
-    image.src = e.target.result;  
+    image.src = evt.target.result;  
 
     pixelazr.art.setImage(image);
   } 
@@ -37,8 +39,9 @@ Pixelazr.Droppable.prototype.initialize = function (element)
 
 Pixelazr.Droppable.prototype.stopDefault = function(e)  
 { 
-  e.stopPropagation(); 
-  e.preventDefault(); 
+  var evt = e || window.event; 
+  evt.stopPropagation(); 
+  evt.preventDefault(); 
 } 
 
 Pixelazr.Droppable.prototype.onDrop = function(e)  
@@ -48,8 +51,9 @@ Pixelazr.Droppable.prototype.onDrop = function(e)
   // Clear DOM log elements
   pixelazr.logs.clearMessages();
 
-  e.stopPropagation(); 
-  e.preventDefault(); 
+  var evt = e || window.event; 
+  evt.stopPropagation(); 
+  evt.preventDefault(); 
 
   var readFileSize = 0; 
   var files = e.dataTransfer.files; 
@@ -62,7 +66,7 @@ Pixelazr.Droppable.prototype.onDrop = function(e)
 
   if (!file.type.match(imageType))  
   { 
-    alert('Drop only image files, please'); 
+    pixelazr.logs.inform('Drop only image files, please'); 
     return; 
   } 
 

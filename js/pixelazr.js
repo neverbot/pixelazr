@@ -36,3 +36,57 @@ addEvent('load', window, function() {
   pixelazr.initialize();
 });
 
+function doPixelate(e)
+{
+  pixelazr.logs.log('Pixelazr.doPixelate', 'Enter doPixelate');
+
+  // var event = e || window.event;
+  // pixelazr.logs.log('Pixelazr.doMagic', 'Event info ' + window.event);
+
+  if (pixelazr.art.modifiedCanvas == null)
+  {
+    pixelazr.logs.inform('Drop an image first, please');
+    return false;
+  }
+
+  pixelazr.art.doPixelate();
+
+  return false; // do not allow form submission
+}
+
+function doDownload(e)
+{
+  pixelazr.logs.log('Pixelazr.doDownload', 'Enter doDownload');
+
+  // var event = e || window.event;
+  // pixelazr.logs.log('Pixelazr.doMagic', 'Event info ' + window.event);
+
+  if (pixelazr.art.modifiedCanvas == null)
+  {
+    pixelazr.logs.inform('Drop an image first, please');
+    return false;
+  }
+
+  var data = pixelazr.art.getImage().src.replace("image/png", "image/octet-stream");
+  window.location.href = data;
+
+  return false; // do not allow form submission
+}
+
+function doReset(e)
+{
+  pixelazr.logs.log('Pixelazr.doReset', 'Enter doReset');
+
+  // var event = e || window.event;
+  // pixelazr.logs.log('Pixelazr.doMagic', 'Event info ' + window.event);
+
+  if (pixelazr.art.modifiedCanvas == null)
+  {
+    pixelazr.logs.inform('Drop an image first, please');
+    return false;
+  }
+
+  pixelazr.art.resetImage();
+
+  return false; // do not allow form submission
+}

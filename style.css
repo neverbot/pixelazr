@@ -70,6 +70,10 @@ a
 	margin: 30px auto 30px auto;
 }
 
+#formContainer form {
+  float: left;
+}
+
 
 /* Give canvas a background */
 canvas {
