@@ -1,2 +1,4 @@
 images
 _old
+.DS_Store
+.gitignore
