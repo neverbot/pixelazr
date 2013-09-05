@@ -7,6 +7,8 @@ Pixelazr.Art = function()
   this.originalImage    = null;
   this.modifiedCanvas   = null;
   this.modifiedContext  = null;
+
+  this.pixelWide = 4;
 }
 
 Pixelazr.Art.prototype.initialize = function (canvasElement)
@@ -40,17 +42,55 @@ Pixelazr.Art.prototype.getImage = function ()
   return this.convertCanvasToImage(this.modifiedCanvas);
 }
 
+Pixelazr.Art.prototype.getAverageColor = function (x, y)
+{
+  var data = this.modifiedContext.getImageData(x, y, this.pixelWide, this.pixelWide);
+  var result = [0, 0, 0, 0];
+
+  var len = data.data.length;
+
+  // Loop for each pixel
+  for (var i = 0; i < len; i+=4)
+  {
+    // R,G,B,Alpha
+    result[0] = result[0] + data.data[i];
+    result[1] = result[1] + data.data[i+1];
+    result[2] = result[2] + data.data[i+2];
+    result[3] = result[3] + data.data[i+3];
+
+    // Loop for each color (r,g,b,alpha)
+    // for (var j = 0; j < 4; j++)
+    // {
+    //   result[j] += data.data[i + j];
+    // }
+  }
+
+  // The average
+  result[0] = Math.floor(result[0] / (this.pixelWide * this.pixelWide));
+  result[1] = Math.floor(result[1] / (this.pixelWide * this.pixelWide));
+  result[2] = Math.floor(result[2] / (this.pixelWide * this.pixelWide));
+  result[3] = Math.floor(result[3] / (this.pixelWide * this.pixelWide));
+
+  return result;
+}
+
 Pixelazr.Art.prototype.doPixelate = function ()
 {
-  for (var i = 0; i < this.modifiedCanvas.width; i+=3)
+  for (var x = 0; x < this.modifiedCanvas.width; x+=this.pixelWide)
   {
-    for (var j = 0; j < this.modifiedCanvas.height; j+=3)
+    for (var y = 0; y < this.modifiedCanvas.height; y+=this.pixelWide)
     {
-      this.modifiedContext.fillStyle = '#FF0000';
-      this.modifiedContext.fillRect(i, j, 2, 2);  
+      var color = this.getAverageColor(x, y);
+
+      this.modifiedContext.fillStyle = 'rgba('+color[0]+', '+color[1]+', '+color[2]+', '+color[3]/255+')';
+      this.modifiedContext.fillRect (x, y, this.pixelWide, this.pixelWide);
+
+      // this.modifiedContext.fillStyle = '#FF0000';
+      // this.modifiedContext.fillRect(x, y, 2, 2);  
     }
-    this.drawCurrent();
   }
+  this.clearCanvas();
+  this.drawCurrent();
 }
 
 Pixelazr.Art.prototype.resetImage = function()
