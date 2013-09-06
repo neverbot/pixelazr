@@ -88,6 +88,8 @@ Pixelazr.Art.prototype.doPixelate = function ()
       // this.modifiedContext.fillStyle = '#FF0000';
       // this.modifiedContext.fillRect(x, y, 2, 2);  
     }
+    this.clearCanvas();
+    this.drawCurrent();
   }
   this.clearCanvas();
   this.drawCurrent();
