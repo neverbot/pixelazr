@@ -8,13 +8,18 @@ Pixelazr.Art = function()
   this.modifiedCanvas   = null;
   this.modifiedContext  = null;
 
-  this.pixelWide = 4;
+  this.pixelWide = 7;
+
+  this.x = 0;
+  this.y = 0;
 }
 
 Pixelazr.Art.prototype.initialize = function (canvasElement)
 {
   this.canvas = canvasElement;
   this.context = this.canvas.getContext('2d');
+  this.x = 0;
+  this.y = 0;
 } 
 
 Pixelazr.Art.prototype.clearCanvas = function ()
@@ -30,6 +35,9 @@ Pixelazr.Art.prototype.drawCurrent = function ()
 
 Pixelazr.Art.prototype.setImage = function (image)
 {
+  this.x = 0;
+  this.y = 0;
+
   this.clearCanvas();
   this.originalImage = image;
   this.modifiedCanvas = this.convertImageToCanvas(image);
@@ -57,12 +65,6 @@ Pixelazr.Art.prototype.getAverageColor = function (x, y)
     result[1] = result[1] + data.data[i+1];
     result[2] = result[2] + data.data[i+2];
     result[3] = result[3] + data.data[i+3];
-
-    // Loop for each color (r,g,b,alpha)
-    // for (var j = 0; j < 4; j++)
-    // {
-    //   result[j] += data.data[i + j];
-    // }
   }
 
   // The average
@@ -74,25 +76,60 @@ Pixelazr.Art.prototype.getAverageColor = function (x, y)
   return result;
 }
 
-Pixelazr.Art.prototype.doPixelate = function ()
+Pixelazr.Art.prototype.doPixelateAux = function ()
 {
-  for (var x = 0; x < this.modifiedCanvas.width; x+=this.pixelWide)
+  // pixelazr.logs.log('lala', 'x '+pixelazr.art.x + ' y '+pixelazr.art.y);
+
+  var color = this.getAverageColor(this.x, this.y);
+  this.modifiedContext.fillStyle = 'rgba('+color[0]+', '+color[1]+', '+color[2]+', '+color[3]/255+')';
+  this.modifiedContext.fillRect (this.x, this.y, this.pixelWide, this.pixelWide);  
+
+  this.y += this.pixelWide;
+
+  if (this.y > this.modifiedCanvas.height)
   {
-    for (var y = 0; y < this.modifiedCanvas.height; y+=this.pixelWide)
-    {
-      var color = this.getAverageColor(x, y);
-
-      this.modifiedContext.fillStyle = 'rgba('+color[0]+', '+color[1]+', '+color[2]+', '+color[3]/255+')';
-      this.modifiedContext.fillRect (x, y, this.pixelWide, this.pixelWide);
-
-      // this.modifiedContext.fillStyle = '#FF0000';
-      // this.modifiedContext.fillRect(x, y, 2, 2);  
-    }
+    this.y = 0;
+    this.x += this.pixelWide;
     this.clearCanvas();
     this.drawCurrent();
   }
-  this.clearCanvas();
-  this.drawCurrent();
+
+  if (this.x > this.modifiedCanvas.width)
+  {
+    this.clearCanvas();
+    this.drawCurrent();    
+    // Finish, do not call again
+  }
+  else
+  {
+    setTimeout(function() { pixelazr.art.doPixelateAux(); }, 1);
+  }
+}
+
+Pixelazr.Art.prototype.doPixelate = function ()
+{
+  this.x = 0;
+  this.y = 0;
+
+  setTimeout(function() { pixelazr.art.doPixelateAux(); }, 1);
+
+  // Old system, before per-row rasterization
+
+  // for (var x = 0; x < this.modifiedCanvas.width; x+=this.pixelWide)
+  // {
+  //   for (var y = 0; y < this.modifiedCanvas.height; y+=this.pixelWide)
+  //   {
+  //     var color = this.getAverageColor(x, y);
+
+  //     this.modifiedContext.fillStyle = 'rgba('+color[0]+', '+color[1]+', '+color[2]+', '+color[3]/255+')';
+  //     this.modifiedContext.fillRect (x, y, this.pixelWide, this.pixelWide);
+
+  //     // this.modifiedContext.fillStyle = '#FF0000';
+  //     // this.modifiedContext.fillRect(x, y, 2, 2);  
+  //   }
+  // }
+  // this.clearCanvas();
+  // this.drawCurrent();
 }
 
 Pixelazr.Art.prototype.resetImage = function()
