@@ -8,7 +8,7 @@ Pixelazr.Art = function()
   this.modifiedCanvas   = null;
   this.modifiedContext  = null;
 
-  this.pixelWide = 7;
+  this.pixelWide = 3;
 
   this.currentXRender = 0;
   this.currentYRender = 0;

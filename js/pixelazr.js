@@ -49,6 +49,10 @@ function doPixelate(e)
     return false;
   }
 
+  // Select pixelation wide
+  var dropDown = document.getElementById('pixelateNumPixels');
+  pixelazr.art.pixelWide = parseInt(dropDown.options[dropDown.selectedIndex].value);
+
   pixelazr.art.doPixelate();
 
   return false; // do not allow form submission

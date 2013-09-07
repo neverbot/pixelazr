@@ -12,6 +12,16 @@
     <div id='global'>
     <div id='column'>
 
+      <div id='note'><strong>Pixelazr</strong> is a very small application made by <strong>Iv&aacute;n Alonso</strong> to help
+        pixelating images in an easy way.
+        Find the author in his 
+        <a href='http://www.neverbot.com'>blog</a>, 
+        <a href='http://twitter.com/neverbot'>twitter</a> or 
+        <a href='http://www.linkedin.com/in/ivanalonso'>linkedin</a>. <br/>
+        See and/or download the code in 
+        <a href='https://github.com/neverbot/Pixelazr'>github</a>.
+      </div>
+
       <div id='main'>
         <canvas id='canvas' width='500' height='500'></canvas>
         <div id='message'>Drop your image here!</div>
@@ -25,6 +35,16 @@
       <div id='formContainer'>
         <form id='pixelate' action='' autocomplete='off' onSubmit='return doPixelate();'>
           <input type='submit' value='Pixelate'/> 
+          <select id='pixelateNumPixels'>
+            <option value='3'>3</option>
+            <option value='4'>4</option>
+            <option value='5'>5</option>
+            <option value='6'>6</option>
+            <option value='7'>7</option>
+            <option value='8'>8</option>
+            <option value='9'>9</option>
+            <option value='10'>10</option>
+          </select>          
         </form>
         <form id='reset' action='' autocomplete='off' onSubmit='return doReset();'>
           <input type='submit' value='Reset'/> 
