@@ -10,16 +10,17 @@ Pixelazr.Art = function()
 
   this.pixelWide = 7;
 
-  this.x = 0;
-  this.y = 0;
+  this.currentXRender = 0;
+  this.currentYRender = 0;
+  this.isRendering = false;
 }
 
 Pixelazr.Art.prototype.initialize = function (canvasElement)
 {
-  this.canvas = canvasElement;
+  this.canvas  = canvasElement;
   this.context = this.canvas.getContext('2d');
-  this.x = 0;
-  this.y = 0;
+  this.currentXRender = 0;
+  this.currentYRender = 0;
 } 
 
 Pixelazr.Art.prototype.clearCanvas = function ()
@@ -35,8 +36,9 @@ Pixelazr.Art.prototype.drawCurrent = function ()
 
 Pixelazr.Art.prototype.setImage = function (image)
 {
-  this.x = 0;
-  this.y = 0;
+  this.currentXRender = 0;
+  this.currentYRender = 0;
+  this.isRendering = false;
 
   this.clearCanvas();
   this.originalImage = image;
@@ -80,25 +82,30 @@ Pixelazr.Art.prototype.doPixelateAux = function ()
 {
   // pixelazr.logs.log('lala', 'x '+pixelazr.art.x + ' y '+pixelazr.art.y);
 
-  var color = this.getAverageColor(this.x, this.y);
+  // Stop if the reset button has been pressed
+  if (this.isRendering == false)
+    return;
+
+  var color = this.getAverageColor(this.currentXRender, this.currentYRender);
   this.modifiedContext.fillStyle = 'rgba('+color[0]+', '+color[1]+', '+color[2]+', '+color[3]/255+')';
-  this.modifiedContext.fillRect (this.x, this.y, this.pixelWide, this.pixelWide);  
+  this.modifiedContext.fillRect (this.currentXRender, this.currentYRender, this.pixelWide, this.pixelWide);  
 
-  this.y += this.pixelWide;
+  this.currentYRender += this.pixelWide;
 
-  if (this.y > this.modifiedCanvas.height)
+  if (this.currentYRender > this.modifiedCanvas.height)
   {
-    this.y = 0;
-    this.x += this.pixelWide;
+    this.currentYRender = 0;
+    this.currentXRender += this.pixelWide;
     this.clearCanvas();
     this.drawCurrent();
   }
 
-  if (this.x > this.modifiedCanvas.width)
+  if (this.currentXRender > this.modifiedCanvas.width)
   {
     this.clearCanvas();
     this.drawCurrent();    
     // Finish, do not call again
+    this.isRendering = false;
   }
   else
   {
@@ -108,8 +115,15 @@ Pixelazr.Art.prototype.doPixelateAux = function ()
 
 Pixelazr.Art.prototype.doPixelate = function ()
 {
-  this.x = 0;
-  this.y = 0;
+  if (this.isRendering == true)
+  {
+    pixelazr.logs.inform('Already pixelating, wait until finish or press reset');
+    return;
+  }
+
+  this.currentXRender = 0;
+  this.currentYRender = 0;
+  this.isRendering = true;
 
   setTimeout(function() { pixelazr.art.doPixelateAux(); }, 1);
 
@@ -134,6 +148,10 @@ Pixelazr.Art.prototype.doPixelate = function ()
 
 Pixelazr.Art.prototype.resetImage = function()
 {
+  this.currentXRender = 0;
+  this.currentYRender = 0;
+  this.isRendering = false;
+
   this.clearCanvas();
   this.modifiedCanvas = this.convertImageToCanvas(this.originalImage);
   this.modifiedContext = this.modifiedCanvas.getContext('2d');
@@ -161,3 +179,5 @@ Pixelazr.Art.prototype.convertCanvasToImage = function(canvas)
   image.src = canvas.toDataURL('image/png');
   return image;
 }
+
+
