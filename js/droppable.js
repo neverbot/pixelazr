@@ -11,10 +11,15 @@ Pixelazr.Droppable.prototype.initialize = function (element)
   this.dropboxElement = element;
 
   // Setup drag and drop handlers
-  this.dropboxElement.addEventListener('dragenter', this.stopDefault, false); 
-  this.dropboxElement.addEventListener('dragover', this.stopDefault, false); 
-  this.dropboxElement.addEventListener('dragleave', this.stopDefault, false); 
-  this.dropboxElement.addEventListener('drop', this.onDrop, false); 
+  addEvent('dragenter', this.dropboxElement, this.stopDefault);
+  addEvent('dragover', this.dropboxElement, this.stopDefault);
+  addEvent('dragleave', this.dropboxElement, this.stopDefault);
+  addEvent('drop', this.dropboxElement, this.onDrop);
+
+  // this.dropboxElement.addEventListener('dragenter', this.stopDefault, false); 
+  // this.dropboxElement.addEventListener('dragover', this.stopDefault, false); 
+  // this.dropboxElement.addEventListener('dragleave', this.stopDefault, false); 
+  // this.dropboxElement.addEventListener('drop', this.onDrop, false); 
 
   this.reader = new FileReader(); 
 
