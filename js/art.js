@@ -54,20 +54,35 @@ Pixelazr.Art.prototype.getImage = function ()
 
 Pixelazr.Art.prototype.getAverageColor = function (x, y)
 {
-  var data = this.modifiedContext.getImageData(x, y, this.pixelWide, this.pixelWide);
+  var data = this.modifiedContext.getImageData(x, y, this.pixelWide, this.pixelWide).data;
   var result = [0, 0, 0, 0];
 
-  var len = data.data.length;
+  // var len = data.length;
 
-  // Loop for each pixel
-  for (var i = 0; i < len; i+=4)
+  // // Loop for each pixel
+  // for (var i = 0; i < len; i+=4)
+  // {
+  //   // R,G,B,Alpha
+  //   result[0] += data[i];
+  //   result[1] += data[i+1];
+  //   result[2] += data[i+2];
+  //   result[3] += data[i+3];
+  // }
+
+  // Surprinsingly for-in is faster than for, even having 
+  // to check if each element is really a number
+
+  var i = 0;
+  var what = 0;
+
+  for (element in data)
   {
-    // R,G,B,Alpha
-    result[0] = result[0] + data.data[i];
-    result[1] = result[1] + data.data[i+1];
-    result[2] = result[2] + data.data[i+2];
-    result[3] = result[3] + data.data[i+3];
+    // Only numbers
+    what = parseInt(data[element]) || 0;
+    result[i%4] += what;
+    ++i;
   }
+
 
   // The average
   result[0] = Math.floor(result[0] / (this.pixelWide * this.pixelWide));
