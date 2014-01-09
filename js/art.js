@@ -83,7 +83,6 @@ Pixelazr.Art.prototype.getAverageColor = function (x, y)
     ++i;
   }
 
-
   // The average
   result[0] = Math.floor(result[0] / (this.pixelWide * this.pixelWide));
   result[1] = Math.floor(result[1] / (this.pixelWide * this.pixelWide));
@@ -102,8 +101,9 @@ Pixelazr.Art.prototype.doPixelateAux = function ()
     return;
 
   var color = this.getAverageColor(this.currentXRender, this.currentYRender);
+  this.modifiedContext.clearRect(this.currentXRender, this.currentYRender, this.pixelWide, this.pixelWide);  
   this.modifiedContext.fillStyle = 'rgba('+color[0]+', '+color[1]+', '+color[2]+', '+color[3]/255+')';
-  this.modifiedContext.fillRect (this.currentXRender, this.currentYRender, this.pixelWide, this.pixelWide);  
+  this.modifiedContext.fillRect(this.currentXRender, this.currentYRender, this.pixelWide, this.pixelWide);  
 
   this.currentYRender += this.pixelWide;
 
