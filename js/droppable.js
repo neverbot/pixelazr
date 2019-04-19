@@ -33,7 +33,11 @@ Pixelazr.Droppable.prototype.initialize = function (element)
     var image = new Image();
     image.src = evt.target.result;
 
-    pixelazr.art.setImage(image);
+    // to solve weird bug in firefox: although the image arrives
+    // correctly, we are not capable to build a canvas with this image.
+    // Let's use a timeout to force the uploading event to be finished
+    // pixelazr.art.setImage(image);
+    setTimeout(function(){ pixelazr.art.setImage(image); }, 1);
   };
 };
 
