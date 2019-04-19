@@ -20,8 +20,7 @@ Pixelazr.prototype.initialize = function()
 
   this.art = new Pixelazr.Art();
   this.art.initialize(document.getElementById('canvas'));
-
-}
+};
 
 // ------------------------------------------------------------
 // ------------------------------------------------------------
@@ -43,7 +42,7 @@ function doPixelate(e)
   // var event = e || window.event;
   // pixelazr.logs.log('Pixelazr.doMagic', 'Event info ' + window.event);
 
-  if (pixelazr.art.modifiedCanvas == null)
+  if (pixelazr.art.modifiedCanvas === null)
   {
     pixelazr.logs.inform('Drop an image first, please');
     return false;
@@ -65,7 +64,7 @@ function doDownload(e)
   // var event = e || window.event;
   // pixelazr.logs.log('Pixelazr.doMagic', 'Event info ' + window.event);
 
-  if (pixelazr.art.modifiedCanvas == null)
+  if (pixelazr.art.modifiedCanvas === null)
   {
     pixelazr.logs.inform('Drop an image first, please');
     return false;
@@ -84,7 +83,7 @@ function doReset(e)
   // var event = e || window.event;
   // pixelazr.logs.log('Pixelazr.doMagic', 'Event info ' + window.event);
 
-  if (pixelazr.art.modifiedCanvas == null)
+  if (pixelazr.art.modifiedCanvas === null)
   {
     pixelazr.logs.inform('Drop an image first, please');
     return false;

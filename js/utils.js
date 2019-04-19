@@ -1,23 +1,23 @@
 
 // Global addEvent to fix old IE way of attaching events
-function addEvent(evnt, elem, func) 
+function addEvent(evnt, elem, func)
 {
-  if (elem.addEventListener)  
+  if (elem.addEventListener)
     // W3C DOM
     elem.addEventListener(evnt, func, false);
-  else if (elem.attachEvent) 
+  else if (elem.attachEvent)
     // IE DOM
     elem.attachEvent('on' + evnt, func);
     // If we want to expose the currentTarget (non-existent in older IE)
     // elem.attachEvent('on' + evnt, function(a) { a.currentTarget = elem; func(a); });
-  else 
+  else
     // Not much to do
     elem['on' + evnt] = func;
 }
 
 // Polyfill for the Array.isArray function
 Array.isArray || (Array.isArray = function ( a ) {
-    return'' + a !== a && {}.toString.call( a ) == '[object Array]'
+    return'' + a !== a && {}.toString.call( a ) == '[object Array]';
 });
 
 // Polyfill for the Object.create function
@@ -61,7 +61,7 @@ Object.keys || (Object.keys = function () {
             }
         }
         return result;
-    }
+    };
 });
 
 

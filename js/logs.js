@@ -7,13 +7,13 @@ Pixelazr.Logs = function()
 
   this.informElement = null;
   this.messageElement = null;
-}
+};
 
 Pixelazr.Logs.prototype.initialize = function (informEl, messageEl)
 {
   this.informElement = informEl;
   this.messageElement = messageEl;
-}
+};
 
 Pixelazr.Logs.prototype.clearMessages = function()
 {
@@ -22,23 +22,23 @@ Pixelazr.Logs.prototype.clearMessages = function()
 
   this.messageElement.style.display = 'none';
   this.messageElement.innerHTML = '';
-}
+};
 
 Pixelazr.Logs.prototype.inform = function (text)
 {
-  if (this.informElement != null)
+  if (this.informElement !== null)
   {
     this.informElement.innerHTML = text;
     // visible again
     this.informElement.style.display = '';
   }
-} 
+};
 
-Pixelazr.Logs.prototype.log = function (fileName, message, object) 
+Pixelazr.Logs.prototype.log = function (fileName, message, object)
 {
   var result = [];
 
-  if (this.shouldDebug == false)
+  if (this.shouldDebug === false)
     return;
 
   if (this.shouldDebugFunctionNames)
@@ -60,4 +60,4 @@ Pixelazr.Logs.prototype.log = function (fileName, message, object)
   {
     console.log(result);
   }
-}
+};
