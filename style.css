@@ -21,7 +21,7 @@ a
 	margin: 10px auto 0 auto;
 	width: 500px;
 	height: 100%;
-	text-align: center;	
+	text-align: center;
 }
 
 #note {
@@ -43,12 +43,12 @@ a
 }
 
 #main {
-	width: 500px; 
-	height: 500px; 
+	width: 500px;
+	height: 500px;
 	text-align: center;
 }
 
-.droppable { 
+.droppable {
   display: inline;
   float: left;
   margin-right:-500px;
@@ -76,8 +76,13 @@ a
 	margin: 30px auto 30px auto;
 }
 
+#formContainer {
+  margin-bottom: 50px;
+}
+
 #formContainer form {
   float: left;
+  margin-right: 20px;
 }
 
 
@@ -91,7 +96,7 @@ canvas {
 	/* Safari/Chrome, other WebKit */
 	/*-webkit-box-sizing: border-box; */
 	/* Firefox, other Gecko */
-	/*-moz-box-sizing: border-box; */   
+	/*-moz-box-sizing: border-box; */
 	/* Opera/IE 8+ */
-	box-sizing: border-box;         
+	box-sizing: border-box;
 }
